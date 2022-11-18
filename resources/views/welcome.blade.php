@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{__('Qtech Interview Tasks')}}</title>
+        <title>@yield('title','Qtech Interview Tasks')</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -19,37 +19,40 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+
+            .leftbar{
+               border: 2px solid grey;
+                padding: 20px 10px;
+            }
+
         </style>
+
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-
-               <div class="container">
+               <div class="container mt-5 pt-5">
+                 <h2 class="text-center mb-5">{{__('Qtec Interview Tasks of (Al Ahsan) ')}}</h2>
                    <div class="card">
-                       <div class="card-header bg-dark">
-                           <h3 class="text-center text-light">{{__('Qtec Interview Tasks of (Al Ahsan) ')}}</h3>
+                       <div class="card-header bg-dark text-light">
+                         <h5 class="text-center">@yield('page-title','Home')</h5>
                        </div>
-                       <div class="card-body d-flex justify-center">
-                           <a class="btn btn-outline-info" href="">{{__('Problem One')}}</a>
-                           <a class="btn btn-outline-primary ml-3" href="">{{__('Problem Two')}}</a>
+                       <div class="card-body">
+                           <div class="row">
+                               <div class="col-lg-2">
+                                    <div class="leftbar">
+                                        <a class="btn btn-{{ request()->is('/') ? 'primary' : 'dark'  }} " href="{{url('/')}}">{{__('Home')}}</a>
+                                        <a class="btn btn-dark my-3" href="#">{{__('Problem One')}}</a>
+                                        <a class="btn btn-{{ request()->route()->getName() == 'user.string.count.page' ? 'primary' : 'dark' }}" href="{{route('user.string.count.page')}}"> {{__('Problem Two')}}</a>
+                                    </div>
+                               </div>
+
+                               <div class="col-lg-10">
+                                    @yield('sohan-content')
+                               </div>
+                           </div>
                        </div>
                    </div>
                </div>
 
-        </div>
+        @yield('js')
     </body>
 </html>
